@@ -1,19 +1,44 @@
+import React from "react";
 import { useState, useEffect } from "react";
+import {  Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
+import Login from "./components/Login";
+import Reviews from "./components/Reviews";
+import Airlines from "./components/Airlines";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [page, setPage] = useState("/")
+  const [airlines,setAirlines] = useState([])
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/airlines")
+    .then((r) => r.json())
+    .then((airlines) => setAirlines(airlines));
   }, []);
 
+  const [reviews, setReviews] = useState([])
+  useEffect(() => {
+      fetch("/reviews")
+      .then((r) => r.json())
+      .then((reviews) => setReviews(reviews));
+    }, []);
+
+    
+
+    
+
   return (
-    <div className="App">
-      <h1>Page Count: {count}</h1>
+    <div>
+      <NavBar onChangePage={setPage} />
+      <Routes>
+        <Route exact path="/airlines" element = {<Airlines airlines={airlines}/>}/>
+        <Route exact path="/reviews" element={<Reviews reviews={reviews} airlines = {airlines}/>}/>
+        <Route exact path="/login" element = {<Login/>}/>
+     </Routes>
     </div>
-  );
+  )
 }
+
+
 
 export default App;
