@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import ReviewCard from "./ReviewCard";
+import EditModal from "./EditModal";
 
-function Reviews({reviews}) {
-    console.log(reviews)
+function Reviews({ reviews }) {
+  const [openEditModal, setOpenEditModal] = useState(false);
 
-    return(
-        <div>
-        {reviews.map((review)=>
-            <>
-            <h2>{review.title} - {review.airline.name} </h2>
-            <p>{review.description} score: {review.score}</p>
-            </>
+  const reviewCards = reviews.map((review) => (
+    <ReviewCard
+      key={review.id}
+      review={review}
+      setOpenEditModal={setOpenEditModal}
+    />
+  ));
+    console.log(setOpenEditModal)
+  return (
+    <div className="card-container">
+      <div className="modal2">
+        {openEditModal && (
+          <EditModal
+            
+            // currentAirline={currentAirline}
+            closeEditModal={setOpenEditModal}
+            // setReviews={setReviews}
+            reviews={reviews}
+          />
         )}
-        {/* {airline.map((a)=>
-            <>
-            <h2>{a.name} - </h2>
-            </>
-        )} */}
-
-        </div>
-    
-    )
+      </div>
+      {reviewCards}
+    </div>
+  );
 }
 
 export default Reviews;
