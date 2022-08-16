@@ -1,9 +1,20 @@
 import React from "react";
 
-function ReviewCard({review, closeEditModal}) {
-    console.log(closeEditModal)
-    function handleClick() {
-        closeEditModal(true)
+function ReviewCard({review, setOpenEditModal, setCurrentReview, setReviews, reviews}) {
+    function handleEditClick() {
+        setOpenEditModal(true)
+        setCurrentReview(review)
+    }
+
+    function handleDeleteClick() {
+      fetch ("/reviews/" + review.id, {
+        method:"DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const updatedReviews = reviews.filter(stateReview => stateReview.id != review.id)
+      setReviews(updatedReviews)
     }
   return (
     <div className="review-card">
@@ -13,8 +24,8 @@ function ReviewCard({review, closeEditModal}) {
       <p>
         {review.description} score: {review.score}
       </p>
-      <button onClick={handleClick}>Edit</button>
-      <button>Delete</button>
+      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={handleDeleteClick}>Delete</button>
     </div>
   );
 }

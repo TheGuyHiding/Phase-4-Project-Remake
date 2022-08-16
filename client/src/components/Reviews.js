@@ -2,26 +2,29 @@ import React, { useState } from "react";
 import ReviewCard from "./ReviewCard";
 import EditModal from "./EditModal";
 
-function Reviews({ reviews }) {
+function Reviews({ reviews, setReviews }) {
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [currentReview, setCurrentReview] = useState();
 
   const reviewCards = reviews.map((review) => (
     <ReviewCard
       key={review.id}
       review={review}
       setOpenEditModal={setOpenEditModal}
+      setCurrentReview={setCurrentReview}
+      setReviews={setReviews}
+      reviews={reviews}
     />
   ));
-    console.log(setOpenEditModal)
   return (
     <div className="card-container">
       <div className="modal2">
         {openEditModal && (
           <EditModal
             
-            // currentAirline={currentAirline}
+            currentReview={currentReview}
             closeEditModal={setOpenEditModal}
-            // setReviews={setReviews}
+            setReviews={setReviews}
             reviews={reviews}
           />
         )}

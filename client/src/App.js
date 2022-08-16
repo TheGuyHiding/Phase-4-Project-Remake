@@ -32,7 +32,7 @@ function App() {
       <NavBar onChangePage={setPage} />
       <Routes>
         <Route exact path="/airlines" element = {<Airlines airlines={airlines} setReviews={setReviews} reviews={reviews}/>}/>
-        <Route exact path="/reviews" element={<Reviews reviews={reviews} airlines={airlines}/>}/>
+        <Route exact path="/reviews" element={<Reviews reviews={reviews} airlines={airlines} setReviews={setReviews}/>}/>
         <Route exact path="/login" element = {<Login/>}/>
      </Routes>
     </div>

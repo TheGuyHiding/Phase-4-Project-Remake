@@ -54,7 +54,7 @@ function Modal({ closeModal, currentAirline, setReviews, reviews }) {
                         </div>
                         <div className='score'>
                             score:
-                            <input type="number" name="score" value={formData.score} onChange={handleChange}/>
+                            <input type="number" name="score" max="5" min="1" value={formData.score} onChange={handleChange}/>
                         </div>
                     </label>
                     <button type="text" onClick={() => closeModal(false)}>Cancel</button>
